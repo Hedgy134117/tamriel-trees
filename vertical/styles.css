@@ -1,0 +1,55 @@
+body {
+    background-color: #121212;
+    color: #FFFFFF;
+}
+
+.skill-tree {
+    display: flex;
+    flex-direction: column;
+}
+
+.skill {
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid white;
+    /* max-width: 105.328px; */
+    align-self: center;
+}
+
+.empty {
+    opacity: 0;
+}
+
+.skill-divider {
+    margin: 1rem;
+    padding: 1rem;
+    align-self: center;
+    width: 105.328px;
+    height: 84px;
+    filter: invert(100%);
+}
+
+
+.skill-split {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.skill-tree-split {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.skill-divider-down {
+    transform: rotate(90deg);
+}
+
+.skill-divider-left {
+    transform: rotate(125deg);
+}
+
+.skill-divider-right {
+    transform: rotate(55deg);
+}

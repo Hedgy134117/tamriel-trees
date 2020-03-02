@@ -1,0 +1,17 @@
+.skill-tree {
+    display: flex;
+    flex-direction: row;
+}
+
+.skill {
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid black;
+    min-width: 105.328px;
+}
+
+.skill-divider {
+    margin: 1rem;
+    padding: 1rem;
+    align-self: center;
+}
