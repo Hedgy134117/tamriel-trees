@@ -1,0 +1,25 @@
+body {
+    background-color: #121212;
+    color: #FFFFFF;
+}
+
+.skill-divider {
+    width: 105.328px;
+    height: 84px;
+    filter: invert(100%);
+    transform: rotate(90deg);
+    
+}
+
+/* for debug purposes, to see the table grid */
+/*th, td {*/
+/*    border: 1px solid white;*/
+/*}*/
+
+th {
+    min-width: 105.328px;
+}
+
+.center {
+    text-align: center;
+}
