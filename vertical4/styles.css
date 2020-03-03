@@ -1,0 +1,16 @@
+body {
+    background-color: #121212;
+    color: #FFFFFF;
+}
+
+.tf-custom .tf-nc {
+    border-color: #FFFFFF;
+}
+
+.tf-custom .tf-nc:before, .tf-custom .tf-nc:after {
+    border-color: #FFFFFF;
+}
+
+.tf-custom li li:before {
+    border-color: #FFFFFF;
+}
