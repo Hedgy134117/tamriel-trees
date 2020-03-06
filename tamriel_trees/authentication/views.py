@@ -10,14 +10,14 @@ def loginView(request):
             # log the user in
             user = form.get_user()
             login(request, user)
-            return redirect('')
+            return redirect('homepage')
     else:
         form = AuthenticationForm()
     return render(request, 'authentication/login.html', {'form': form})
 
 def logoutView(request):
     logout(request)
-    return redirect('')
+    return redirect('homepage')
 
 def signupView(request):
     if request.method == 'POST':
@@ -26,7 +26,7 @@ def signupView(request):
             user = form.save()
             # log the user in
             login(request, user)
-            return redirect('')
+            return redirect('homepage')
     else:
         form = UserCreationForm()
     return render(request, 'authentication/signup.html', {'form': form})

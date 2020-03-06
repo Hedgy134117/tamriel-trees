@@ -1,11 +1,28 @@
+{% load static from staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'nav.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+    <ul id="nav">
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'authentication:logout' %}">Logout</a></li>
+        <li><a href="{% url 'homepage' %}">Homepage</a></li>
+        {% else %}
+        <li><a href="{% url 'authentication:login' %}">Login</a></li>
+        <li><a href="{% url 'authentication:signup' %}">Signup</a></li>
+        {% endif %}
+    </ul>
+
     {% block content %}
 
     {% endblock %}
