@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ tree.name }}{% endblock %}
+{% block admin_nav %}
+<li><a href="{% url 'trees:addSkill' tree.id %}">Add Skill</a></li>
+{% endblock %}
+
+{% block content %}
+    <br />
+    <div class="tf-tree tf-custom">
+        <ul>
+        {% for skill in skills %}
+        <li><span class="tf-nc"><b>{{ skill.name }}</b><br />{{ skill.description }}</span></li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

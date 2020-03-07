@@ -1,4 +1,11 @@
 from django.shortcuts import render, redirect
+from trees.models import Tree
 
 def homepage(request):
-    return render(request, 'base.html', {})
+    allTrees = Tree.objects.all()
+    trees = []
+    for tree in allTrees:
+        if tree.user == request.user:
+            trees.append(tree)
+
+    return render(request, 'homepage.html', {'trees': trees})

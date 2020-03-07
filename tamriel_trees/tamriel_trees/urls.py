@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.homepage, name='homepage'),
     path('admin/', admin.site.urls),
     path('authentication/', include('authentication.urls')),
+    path('trees/', include('trees.urls')),
 ]

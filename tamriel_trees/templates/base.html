@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/treeflex/dist/css/treeflex.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'trees.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'nav.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
 
@@ -17,6 +19,10 @@
         {% if user.is_authenticated %}
         <li><a href="{% url 'authentication:logout' %}">Logout</a></li>
         <li><a href="{% url 'homepage' %}">Homepage</a></li>
+        {% if user.is_superuser %}
+        <li><a href="{% url 'trees:createTree' %}">Create Tree</a></li>
+        {% block admin_nav %}{% endblock %}
+        {% endif %}
         {% else %}
         <li><a href="{% url 'authentication:login' %}">Login</a></li>
         <li><a href="{% url 'authentication:signup' %}">Signup</a></li>

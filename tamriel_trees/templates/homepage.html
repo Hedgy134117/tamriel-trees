@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+    {% for tree in trees %}
+    <div class="tree">
+        <p><a href="{% url 'trees:treeDetail' tree.id %}">{{ tree.name }}</a></p>
+    </div>
+    {% endfor %}
+
+{% endblock %}
