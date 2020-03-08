@@ -19,8 +19,34 @@ def createTree(request):
 
 def treeDetail(request, id):
     tree = models.Tree.objects.get(id=id)
-    skills = models.Skill.objects.filter(tree=tree)
-    return render(request, 'trees/tree.html', {'tree': tree, 'skills': skills})
+    skillObjects = models.Skill.objects.filter(tree=tree)
+    orders = {}
+
+    for i in range(len(skillObjects)):
+        if skillObjects[i].parent == None: 
+            orders[skillObjects[i].name] = {}
+            continue
+
+        finished = False
+        order = 0
+        currentSkill = skillObjects[i]
+        while finished == False:
+            if currentSkill.parent == None:
+                print(order, orders)
+                if order not in orders[currentSkill.name]:
+                    orders[currentSkill.name][order] = [skillObjects[i].name]
+                else:
+                    currentSkillList = orders[currentSkill.name][order]
+                    currentSkillList.append(skillObjects[i].name)
+                    orders[currentSkill.name][order] = currentSkillList
+                finished = True
+            else:
+                currentSkill = currentSkill.parent
+            order += 1
+
+    print(orders)
+
+    return render(request, 'trees/tree.html', {'tree': tree, 'skills': skillObjects, 'orders': orders})
 
 @permission_required('is.admin')
 def addSkill(request, id):

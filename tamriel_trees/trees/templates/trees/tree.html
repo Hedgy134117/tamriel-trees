@@ -9,8 +9,36 @@
     <br />
     <div class="tf-tree tf-custom">
         <ul>
-        {% for skill in skills %}
-        <li><span class="tf-nc"><b>{{ skill.name }}</b><br />{{ skill.description }}</span></li>
+        {% for key, values in orders.items %}
+            {% for skill in skills %}
+                {% if skill.name == key %}
+                <li><span class="tf-nc"><b>{{ skill.name }}</b><br />{{ skill.description }}</span>
+                
+                {% for order, skillList in values.items %}
+                    <ul>
+                    
+                    {% for skillName in skillList %}
+                    <li>
+                        {% for skill in skills %}
+                            {% if skill.name == skillName %}
+                            <span class="tf-nc"><b>{{ skill.name }}</b><br />{{ skill.description }}</span>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                {% endfor %}
+                
+                {% for order, skillList in values.items %}
+                    {% for skill in skillList %}
+                    </li>
+                    {% endfor %}
+                    </ul>
+                {% endfor %}
+
+                {% endif %}
+                {% endfor %}
+            
+            
+            </li>
         {% endfor %}
         </ul>
     </div>
