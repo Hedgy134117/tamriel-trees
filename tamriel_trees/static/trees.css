@@ -14,3 +14,16 @@ body {
 .tf-custom li li:before {
     border-color: #FFFFFF;
 }
+
+.tf-custom a {
+    float: right;
+    color: #FFD322;
+}
+
+.unchecked {
+    color: gray;
+}
+
+.checked {
+    color: #FFFFFF;
+}

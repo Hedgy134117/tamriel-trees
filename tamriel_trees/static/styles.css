@@ -3,3 +3,19 @@ body {
     color: #FFFFFF;
     font-family: 'Roboto', sans-serif;
 }
+
+a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.tree a {
+    padding: 5px;
+    background-color: #272727;
+    display: block;
+}
+
+.tree a:hover {
+    background-color: #FFD322;
+    color: black;
+}

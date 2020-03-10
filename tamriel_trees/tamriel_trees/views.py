@@ -8,4 +8,7 @@ def homepage(request):
         if tree.user == request.user:
             trees.append(tree)
 
-    return render(request, 'homepage.html', {'trees': trees})
+    if request.user.is_superuser:
+        return render(request, 'homepage.html', {'trees': allTrees})
+    else:
+        return render(request, 'homepage.html', {'trees': trees})

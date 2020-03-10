@@ -12,21 +12,29 @@
         {% for key, values in orders.items %}
             {% for skill in skills %}
                 {% if skill.name == key %}
-                <li><span class="tf-nc"><b>{{ skill.name }}</b><br />{{ skill.description }}</span>
-                
+                <li><span class="tf-nc {% if skill.checked %} checked {% else %} unchecked {% endif %}">
+                    <b>{{ skill.name }}</b><br />
+                    {{ skill.description }}<br />
+                    {% if user.is_superuser %}<a href="{% url 'trees:editSkill' tree.id skill.id %}">Edit</a>{% endif %}
+                    </span>
+
                 {% for order, skillList in values.items %}
                     <ul>
-                    
+
                     {% for skillName in skillList %}
                     <li>
                         {% for skill in skills %}
                             {% if skill.name == skillName %}
-                            <span class="tf-nc"><b>{{ skill.name }}</b><br />{{ skill.description }}</span>
+                            <span class="tf-nc {% if skill.checked %} checked {% else %} unchecked {% endif %}">
+                                <b>{{ skill.name }}</b><br />
+                                {{ skill.description }}<br />
+                                {% if user.is_superuser %}<a href="{% url 'trees:editSkill' tree.id skill.id %}">Edit</a>{% endif %}
+                                </span>
                             {% endif %}
                         {% endfor %}
                     {% endfor %}
                 {% endfor %}
-                
+
                 {% for order, skillList in values.items %}
                     {% for skill in skillList %}
                     </li>
@@ -36,8 +44,8 @@
 
                 {% endif %}
                 {% endfor %}
-            
-            
+
+
             </li>
         {% endfor %}
         </ul>

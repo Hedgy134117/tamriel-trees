@@ -4,9 +4,21 @@
 
 {% block content %}
     {% for tree in trees %}
+    {% if user.is_superuser %}
+    <div class="tree">
+        <p><a href="{% url 'trees:treeDetail' tree.id %}">{{ tree.adminName }}</a></p>
+    </div>
+    {% else %}
     <div class="tree">
         <p><a href="{% url 'trees:treeDetail' tree.id %}">{{ tree.name }}</a></p>
     </div>
+    {% endif %}
+    {% empty %}
+    <div class="tree">
+        <p>No trees ):</p>
+    </div>
+
+
     {% endfor %}
 
 {% endblock %}
