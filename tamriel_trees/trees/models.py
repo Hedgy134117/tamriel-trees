@@ -15,9 +15,13 @@ class Tree(models.Model):
 class Skill(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
-    tree = models.ForeignKey(Tree, on_delete=models.CASCADE, default=None, blank=True)
-    checked = models.BooleanField(default=False)
     parent = models.ForeignKey('self', on_delete=models.CASCADE, default=None, blank=True, null=True)
+    checked = models.BooleanField(default=False)
+    bronzeCost = models.IntegerField(default=None, blank=True, null=True)
+    silverCost = models.IntegerField(default=None, blank=True, null=True)
+    goldCost = models.IntegerField(default=None, blank=True, null=True)
+    platinumCost = models.IntegerField(default=None, blank=True, null=True)
+    tree = models.ForeignKey(Tree, on_delete=models.CASCADE, default=None, blank=True)
 
     def __str__(self):
         return str(self.name)

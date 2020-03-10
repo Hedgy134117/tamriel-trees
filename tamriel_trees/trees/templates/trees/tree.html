@@ -14,6 +14,12 @@
                 {% if skill.name == key %}
                 <li><span class="tf-nc {% if skill.checked %} checked {% else %} unchecked {% endif %}">
                     <b>{{ skill.name }}</b><br />
+                    <i>
+                        {% if skill.bronzeCost %}{{ skill.bronzeCost }} bronze {% endif %}
+                        {% if skill.silverCost %}{{ skill.silverCost }} silver {% endif %}
+                        {% if skill.goldCost %}{{ skill.goldCost }} gold {% endif %}
+                        {% if skill.platinumCost %}{{ skill.platinumCost }} platinum {% endif %}
+                        {% if skill.bronzeCost or skill.silver or skill.goldCost or skill.platinumCost %}<br />{% else %}Free<br />{% endif %}</i>
                     {{ skill.description }}<br />
                     {% if user.is_superuser %}<a href="{% url 'trees:editSkill' tree.id skill.id %}">Edit</a>{% endif %}
                     </span>
@@ -27,6 +33,12 @@
                             {% if skill.name == skillName %}
                             <span class="tf-nc {% if skill.checked %} checked {% else %} unchecked {% endif %}">
                                 <b>{{ skill.name }}</b><br />
+                                <i>
+                                    {% if skill.bronzeCost %}{{ skill.bronzeCost }} bronze {% endif %}
+                                    {% if skill.silverCost %}{{ skill.silverCost }} silver {% endif %}
+                                    {% if skill.goldCost %}{{ skill.goldCost }} gold {% endif %}
+                                    {% if skill.platinumCost %}{{ skill.platinumCost }} platinum {% endif %}
+                                    {% if skill.bronzeCost or skill.silver or skill.goldCost or skill.platinumCost %}<br />{% else %}Free<br />{% endif %}</i>
                                 {{ skill.description }}<br />
                                 {% if user.is_superuser %}<a href="{% url 'trees:editSkill' tree.id skill.id %}">Edit</a>{% endif %}
                                 </span>

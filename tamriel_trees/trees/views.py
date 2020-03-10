@@ -82,6 +82,11 @@ def editSkill(request, treeId, skillId):
             skill.tree = form.cleaned_data['tree']
             skill.checked = form.cleaned_data['checked']
             skill.parent = form.cleaned_data['parent']
+
+            skill.bronzeCost = form.cleaned_data['bronzeCost']
+            skill.silverCost = form.cleaned_data['silverCost']
+            skill.goldCost = form.cleaned_data['goldCost']
+            skill.platinumCost = form.cleaned_data['platinumCost']
             skill.save()
             return redirect('trees:treeDetail', id=treeId)
 
