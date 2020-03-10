@@ -25,7 +25,9 @@ SECRET_KEY = 'k-+o!)-@giup%iw1s&de7_md6qco9$2hp_j$tx+w+h99i&g@+#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'hedgy1.pythonanywhere.com',
+]
 
 
 # Application definition
@@ -38,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'authentication',
-    'trees', 
+    'trees',
 ]
 
 MIDDLEWARE = [
@@ -124,5 +126,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 LOGIN_REDIRECT_URL = '/'
