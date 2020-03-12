@@ -57,9 +57,9 @@ def treeDetail(request, id):
         finished = False
         order = 0
         currentSkill = skill
-        while finished == False:
-            if currentSkill.parent == None:
-                skills[skill].insert(0, order)
+        # while finished == False:
+        #     if currentSkill.parent == None:
+        #         skills[skill].insert(0, order)
         print(skills)
 
     # return render(request, 'trees/tree.html', {'tree': tree, 'orders': orders})
