@@ -3,6 +3,7 @@
 {% block title %}{{ tree.name }}{% endblock %}
 {% block admin_nav %}
 <li><a href="{% url 'trees:addSkill' tree.id %}">Add Skill</a></li>
+<li><a href="{% url 'trees:cloneTree' tree.id %}">Clone Tree</a></li>
 {% endblock %}
 
 {% block content %}

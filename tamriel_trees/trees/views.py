@@ -20,33 +20,50 @@ def createTree(request):
 def treeDetail(request, id):
     tree = models.Tree.objects.get(id=id)
     skillObjects = models.Skill.objects.filter(tree=tree)
-    orders = {}
+    # orders = {}
 
-    for i in range(len(skillObjects)):
-        if skillObjects[i].parent == None:
-            orders[skillObjects[i].name] = {}
-            continue
+    # for i in range(len(skillObjects)):
+    #     if skillObjects[i].parent == None:
+    #         orders[skillObjects[i].name] = {}
+    #         continue
 
+    #     finished = False
+    #     order = 0
+    #     currentSkill = skillObjects[i]
+    #     while finished == False:
+    #         if currentSkill.parent == None:
+    #             print(order, orders)
+    #             if order not in orders[currentSkill.name]:
+    #                 orders[currentSkill.name][order] = [skillObjects[i].name]
+    #             else:
+    #                 currentSkillList = orders[currentSkill.name][order]
+    #                 currentSkillList.append(skillObjects[i].name)
+    #                 orders[currentSkill.name][order] = currentSkillList
+    #             finished = True
+    #         else:
+    #             currentSkill = currentSkill.parent
+    #         order += 1
+
+    # print(orders)
+
+    skills = {}
+    # {Skill: [order, Child Skills]}
+    for skill in skillObjects:
+        # Get children of skill
+        childrenObjects = list(models.Skill.objects.filter(parent=skill))
+        skills[skill] = childrenObjects
+
+        # Get order of skill
         finished = False
         order = 0
-        currentSkill = skillObjects[i]
+        currentSkill = skill
         while finished == False:
             if currentSkill.parent == None:
-                print(order, orders)
-                if order not in orders[currentSkill.name]:
-                    orders[currentSkill.name][order] = [skillObjects[i].name]
-                else:
-                    currentSkillList = orders[currentSkill.name][order]
-                    currentSkillList.append(skillObjects[i].name)
-                    orders[currentSkill.name][order] = currentSkillList
-                finished = True
-            else:
-                currentSkill = currentSkill.parent
-            order += 1
+                skills[skill].insert(0, order)
+        print(skills)
 
-    print(orders)
-
-    return render(request, 'trees/tree.html', {'tree': tree, 'skills': skillObjects, 'orders': orders})
+    # return render(request, 'trees/tree.html', {'tree': tree, 'orders': orders})
+    return render(request, 'trees/treeRevised.html', {'tree': tree, 'skills': skills})
 
 @permission_required('is.admin')
 def addSkill(request, id):
@@ -94,6 +111,33 @@ def editSkill(request, treeId, skillId):
         form = forms.AddSkill(instance=skill)
         form.fields['parent'].queryset = models.Skill.objects.filter(tree=tree)
     return render(request, 'trees/editSkill.html', {'form': form, 'tId': treeId, 'sId': skillId})
+
+@permission_required('is.admin')
+def cloneTree(request, id):
+    tree = models.Tree.objects.get(id=id)
+    form = forms.CreateTree(instance=tree)
+    skills = models.Skill.objects.filter(tree=tree)
+    newSkills = list(skills).copy()
+
+    if request.method == 'POST':
+        form = forms.CreateTree(request.POST)
+
+        if form.is_valid():
+            newTree = form.save()
+            for skill in newSkills:
+                skill.id = None
+                skill.tree = newTree
+                skill.save()
+            return redirect('homepage')
+
+    else:
+        form = forms.CreateTree(instance=tree)
+    return render(request, 'trees/cloneTree.html', {'form': form, 'id': id})
+
+
+
+
+
 
 
 
