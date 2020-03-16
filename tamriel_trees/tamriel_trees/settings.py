@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'hedgy1.pythonanywhere.com',
+    'localhost',
 ]
 
 

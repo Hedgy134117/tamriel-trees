@@ -20,50 +20,65 @@ def createTree(request):
 def treeDetail(request, id):
     tree = models.Tree.objects.get(id=id)
     skillObjects = models.Skill.objects.filter(tree=tree)
-    # orders = {}
+    unordered = list(skillObjects)
+    orderedDict = { }
+    ordered = [ ]
+    orderedList = [ ]
 
-    # for i in range(len(skillObjects)):
-    #     if skillObjects[i].parent == None:
-    #         orders[skillObjects[i].name] = {}
-    #         continue
-
-    #     finished = False
-    #     order = 0
-    #     currentSkill = skillObjects[i]
-    #     while finished == False:
-    #         if currentSkill.parent == None:
-    #             print(order, orders)
-    #             if order not in orders[currentSkill.name]:
-    #                 orders[currentSkill.name][order] = [skillObjects[i].name]
-    #             else:
-    #                 currentSkillList = orders[currentSkill.name][order]
-    #                 currentSkillList.append(skillObjects[i].name)
-    #                 orders[currentSkill.name][order] = currentSkillList
-    #             finished = True
-    #         else:
-    #             currentSkill = currentSkill.parent
-    #         order += 1
-
-    # print(orders)
-
-    skills = {}
-    # {Skill: [order, Child Skills]}
     for skill in skillObjects:
-        # Get children of skill
-        childrenObjects = list(models.Skill.objects.filter(parent=skill))
-        skills[skill] = childrenObjects
-
-        # Get order of skill
-        finished = False
         order = 0
-        currentSkill = skill
-        # while finished == False:
-        #     if currentSkill.parent == None:
-        #         skills[skill].insert(0, order)
-        print(skills)
+        finishedOrder = False
+        skillCheck = skill
+        while not finishedOrder:
+            if not skillCheck.parent:
+                if order in orderedDict.keys():
+                    orderedDict[order].append(skill)
+                else:
+                    orderedDict[order] = [skill]
+                finishedOrder = True
+            else:
+                order += 1
+                skillCheck = skillCheck.parent
 
-    # return render(request, 'trees/tree.html', {'tree': tree, 'orders': orders})
-    return render(request, 'trees/treeRevised.html', {'tree': tree, 'skills': skills})
+    for skills in orderedDict.values():
+        for skill in skills:
+            ordered.append(skill)
+        ordered.append('in')
+    ordered.pop()
+    lastIndex = 0
+    for i in range(len(ordered)):
+        if ordered[i] == 'in':
+            currentList = ordered[lastIndex:i]
+            if 'in' in currentList: currentList.remove('in')
+            orderedList.append(currentList)
+            lastIndex = i
+
+    indexes = [0 for l in orderedList]
+    index = 0
+    previousSkill = None
+    isFinished = False
+    while not isFinished:
+        # print(previousSkill, "<", orderedList[index][indexes[index]], indexes, "\n")
+        if orderedList[index][indexes[index]].parent == previousSkill:
+            print(orderedList[index][indexes[index]])
+        
+        previousSkill = orderedList[index][indexes[index]]
+        if index == len(orderedList) - 1:
+            index = 0
+            anyPossiblePath = False
+            for l in range(len(orderedList) - 1, 0, -1):
+                if len(orderedList[l]) - 1 != indexes[l]:
+                    anyPossiblePath = True
+                    indexes[l] += 1
+                    break
+            if not anyPossiblePath:
+                isFinished = True
+        else:
+            index += 1
+
+    print(orderedList)
+
+    return render(request, 'trees/treeRevised.html', {'tree': tree })
 
 @permission_required('is.admin')
 def addSkill(request, id):
