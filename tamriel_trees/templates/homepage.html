@@ -6,11 +6,11 @@
     {% for tree in trees %}
     {% if user.is_superuser %}
     <div class="tree">
-        <p><a href="{% url 'trees:treeDetail' tree.id %}">{{ tree.adminName }}</a></p>
+        <p><a href="{% url 'trees:mTreeDetail' tree.id %}">{{ tree.adminName }}</a></p>
     </div>
     {% else %}
     <div class="tree">
-        <p><a href="{% url 'trees:treeDetail' tree.id %}">{{ tree.name }}</a></p>
+        <p><a href="{% url 'trees:mTreeDetail' tree.id %}">{{ tree.name }}</a></p>
     </div>
     {% endif %}
     {% empty %}

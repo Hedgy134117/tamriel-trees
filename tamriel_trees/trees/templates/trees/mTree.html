@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load mptt_tags %}
+
+{% block admin_nav %}
+<li><a href="{% url 'trees:mAddSkill' id %}">Add Skill</a></li>
+<li><a href="{% url 'trees:mCloneTree' id %}">Clone Tree</a></li>
+{% endblock %}
+
+{% block content %}
+    <div class="tf-tree tf-custom">
+        <ul>
+            {% recursetree skills %}
+                <li>
+                    <span class="tf-nc {% if node.checked %} checked {% else %} unchecked {% endif %}">
+                        <b>{{ node.name }}</b><br />
+                        <i>
+                            {% if node.bronzeCost %}{{ node.bronzeCost }} bronze {% endif %}
+                            {% if node.silverCost %}{{ node.silverCost }} silver {% endif %}
+                            {% if node.goldCost %}{{ node.goldCost }} gold {% endif %}
+                            {% if node.platinumCost %}{{ node.platinumCost }} platinum {% endif %}
+                            {% if node.bronzeCost or node.silver or node.goldCost or node.platinumCost %}<br />{% else %}Free<br />{% endif %}</i>
+                        {{ node.description }}<br />
+                        {% if user.is_superuser %}<a href="{% url 'trees:mEditSkill' id node.id %}">Edit</a>{% endif %}
+                    </span>
+                    {% if not node.is_leaf_node %}
+                        <ul class="children">
+                            {{ children }}
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endrecursetree %}
+        </ul>
+    </div>
+{% endblock %}

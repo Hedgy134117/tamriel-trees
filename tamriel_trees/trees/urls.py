@@ -6,8 +6,9 @@ app_name = 'trees'
 
 urlpatterns = [
     path('createTree/', views.createTree, name='createTree'),
-    path('tree/<id>/', views.treeDetail, name='treeDetail'),
-    path('tree/<id>/addSkill', views.addSkill, name='addSkill'),
-    path('tree/<int:treeId>/edit/<int:skillId>/', views.editSkill, name='editSkill'),
-    path('tree/<id>/clone', views.cloneTree, name='cloneTree'),
+
+    path('mTree/<id>/', views.mTreeDetail, name='mTreeDetail'),
+    path('mTree/<id>/addSkill', views.mAddSkill, name='mAddSkill'),
+    path('mTree/<int:tree_id>/edit/<int:skill_id>', views.mEditSkill, name='mEditSkill'),
+    path('mTree/<id>/clone', views.mCloneTree, name='mCloneTree'),
 ]
