@@ -2,6 +2,10 @@
 
 {% block title %}Edit Skill{% endblock %}
 
+{% block admin_nav %}
+<li><a class="small" href="{% url 'trees:mDeleteSkill' tree_id skill_id %}">Delete Skill</a></li>
+{% endblock %}
+
 {% block content %}
 <form action="{% url 'trees:mEditSkill' tree_id skill_id %}" method="POST" enctype="multipart/form-data">
     <table>

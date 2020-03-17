@@ -10,5 +10,7 @@ urlpatterns = [
     path('mTree/<id>/', views.mTreeDetail, name='mTreeDetail'),
     path('mTree/<id>/addSkill', views.mAddSkill, name='mAddSkill'),
     path('mTree/<int:tree_id>/edit/<int:skill_id>', views.mEditSkill, name='mEditSkill'),
+    path('mTree/<int:tree_id>/delete/<int:skill_id>', views.mDeleteSkill, name='mDeleteSkill'),
     path('mTree/<id>/clone', views.mCloneTree, name='mCloneTree'),
+    path('mTree/<id>/delete', views.mDeleteTree, name='mDeleteTree'),
 ]

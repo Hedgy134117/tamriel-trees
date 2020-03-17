@@ -4,9 +4,11 @@
 {% block admin_nav %}
 <li><a href="{% url 'trees:mAddSkill' id %}">Add Skill</a></li>
 <li><a href="{% url 'trees:mCloneTree' id %}">Clone Tree</a></li>
+<li><a class="small" href="{% url 'trees:mDeleteTree' id %}">Delete Tree</a></li>
 {% endblock %}
 
 {% block content %}
+    <br />
     <div class="tf-tree tf-custom">
         <ul>
             {% recursetree skills %}

@@ -90,9 +90,15 @@ def mCloneTree(request, id):
         form = forms.CreateTree(instance=tree)
     return render(request, 'trees/mCloneTree.html', {'form': form, 'id': id})
 
+@permission_required('is.admin')
+def mDeleteTree(request, id):
+    models.Tree.objects.get(id=id).delete()
+    return redirect('homepage')
 
-
-
+@permission_required('is.admin')
+def mDeleteSkill(request, tree_id, skill_id):
+    models.mSkill.objects.get(id=skill_id).delete()
+    return redirect('trees:mTreeDetail', id=tree_id)
 
 
 

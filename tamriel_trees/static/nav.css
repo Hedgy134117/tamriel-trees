@@ -22,3 +22,8 @@
     background-color: #FFD322;
     color: black;
 }
+
+#nav .small:hover {
+    background-color: #CE1E1E;
+    color: black;
+}
