@@ -3,22 +3,25 @@
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
-    {% for tree in trees %}
-    {% if user.is_superuser %}
-    <div class="tree">
-        <p><a href="{% url 'trees:mTreeDetail' tree.id %}">{{ tree.adminName }}</a></p>
-    </div>
+    {% if admin == True %}
+        {% for user, treeList in trees.items %}
+            <h3>{{ user.username }}</h3>
+            {% for tree in treeList %}
+            <div class="tree">
+                <p><a href="{% url 'trees:mTreeDetail' tree.id %}">{{ tree.name }}</a></p>
+            </div>
+            {% endfor %}
+        {% endfor %}
     {% else %}
-    <div class="tree">
-        <p><a href="{% url 'trees:mTreeDetail' tree.id %}">{{ tree.name }}</a></p>
-    </div>
+        {% for tree in trees %}
+        <div class="tree">
+            <p><a href="{% url 'trees:mTreeDetail' tree.id %}">{{ tree.name }}</a></p>
+        </div>
+        {% empty %}
+        <div class="tree">
+            <p>No trees ):</p>
+        </div>
+        {% endfor %}
     {% endif %}
-    {% empty %}
-    <div class="tree">
-        <p>No trees ):</p>
-    </div>
-
-
-    {% endfor %}
 
 {% endblock %}
